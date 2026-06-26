@@ -72,7 +72,7 @@ Each stage adds something:
 
 ---
 
-## Dataset & an Honest Note on Its Limits
+## Dataset & Its Limits
 
 This project uses the **CIC-IDS-2017** intrusion-detection dataset. It's a well-known benchmark, but working with it surfaced a limitation worth stating plainly, because it shapes how the results should be read:
 
