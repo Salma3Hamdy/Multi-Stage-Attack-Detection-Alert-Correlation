@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.log
+.venv/
+venv/
+archive/CIC-IDS-2017_enriched.csv
+training_data/task1_all.csv
