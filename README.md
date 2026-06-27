@@ -67,12 +67,13 @@ Each stage adds something:
 - **Python 3.14**
 - **XGBoost** for classification tasks
 - **pandas / scikit-learn** for data processing and evaluation
+- **Streamlit** for the interactive dashboard
 - **MITRE ATT&CK** technique → tactic → kill-chain mapping
 - **CIC-IDS-2017** as the source dataset
 
 ---
 
-## Dataset & an Honest Note on Its Limits
+## Dataset & Its Limits
 
 This project uses the **CIC-IDS-2017** intrusion-detection dataset. It's a well-known benchmark, but working with it surfaced a limitation worth stating plainly, because it shapes how the results should be read:
 
@@ -97,7 +98,7 @@ Because of the data limitation above, the components are evaluated separately an
 | Stage prediction (Task 4) | Kill-chain rule system, with an ML model as a secondary signal | **Driven primarily by the rule-based kill-chain logic** — the learned classifier is unreliable given only 19 attack campaigns |
 | APT similarity (Task 5) | Jaccard similarity vs APT technique profiles | Reports matched techniques as evidence, returns *no-confidence* instead of a misleading 0-score |
 
-> **Note:** report only numbers from the leak-free evaluation here. Fill in your real per-class metrics once the chronological / group-aware split has been run. Avoid headline "99% accuracy" claims — see the audit for why that figure was an artifact of class imbalance, not real performance.
+The headline stage-prediction accuracy that an early version of the model reported (~99%) was an artifact of class imbalance, not real performance — the model was effectively predicting "benign" for everything. Rather than present that number, stage prediction is driven by the rule-based kill-chain logic, and the data-leakage audit below documents exactly why the original figure was misleading. This is a deliberate honesty choice over a more impressive-looking but meaningless metric.
 
 ---
 
@@ -124,20 +125,27 @@ The full audit report is in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 ├── README.md
 ├── LICENSE
 ├── requirements.txt
-├── src/
+├── .gitignore
+├── Clean_Dataset.py               # dataset cleaning
+├── build_features_test.py         # feature-build checks
+├── scripts/
 │   ├── build_features.py          # feature build + ATT&CK mapping
+│   ├── full_rebuild.py            # full feature rebuild
 │   ├── prepare_training_data.py   # attack-first campaign selection
 │   ├── generate_task4_splits.py   # stage-prediction splits (group-aware)
 │   ├── train_fp_filter.py         # FP filter (leak-free features)
+│   ├── train_link_prediction.py   # link-prediction model
 │   ├── train_stage_prediction.py  # XGBoost stage model + rule fallback
+│   ├── evaluate_link_prediction.py
+│   ├── eval_task3_confusion.py
 │   ├── pipeline.py                # end-to-end pipeline
-│   └── dashboard.py               # interactive dashboard
-├── models/                        # trained model artifacts (.pkl)
+│   └── dashboard.py               # interactive Streamlit dashboard
+├── models/                        # trained model artifacts (.pkl / .h5)
+├── training_data/                 # train/val/test splits for each task
+├── assets/screenshots/            # dashboard screenshots used in this README
 └── docs/
-    └── leakage_audit.md
+    └── leakage_audit.md           # full data-leakage audit
 ```
-
-*(Adjust to match your actual file names.)*
 
 ---
 
@@ -145,25 +153,25 @@ The full audit report is in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 
 ```bash
 # clone
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/Salma3Hamdy/Multi-Stage-Attack-Detection-Alert-Correlation.git
+cd Multi-Stage-Attack-Detection-Alert-Correlation
 
 # install dependencies
 pip install -r requirements.txt
 ```
 
-The CIC-IDS-2017 dataset is not included in this repo due to size. Download it from the [official CIC source](https://www.unb.ca/cic/datasets/ids-2017.html) and place the CSVs where the feature-build script expects them.
+The full **CIC-IDS-2017** dataset and the large enriched/training CSVs are not included in this repo due to size (GitHub's 100 MB per-file limit). Download the original dataset from the [official CIC source](https://www.unb.ca/cic/datasets/ids-2017.html), then run the feature-build script to regenerate the enriched data.
 
 ### Run the pipeline
 
 ```bash
-python src/pipeline.py
+python scripts/pipeline.py
 ```
 
 ### Launch the dashboard
 
 ```bash
-python src/dashboard.py
+streamlit run scripts/dashboard.py
 ```
 
 ---
