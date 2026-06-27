@@ -108,11 +108,11 @@ A core part of this project was **auditing the evaluation itself** rather than t
 
 Key findings and fixes:
 
-- **Temporal overlap** — train/test campaigns spanned the same dates, letting the model exploit time-correlated patterns. Fixed by moving toward a chronological split (train on the past, test on the future).
-- **Sequence overlap** — identical all-benign sequences appeared across train/val/test. Fixed by deduplicating sequences and excluding all-benign campaigns from stage prediction.
-- **Synthetic feature leakage** — `first_time_seen`, `target_vulnerable`, and `ti_match` were synthetically generated and wouldn't exist in real deployment. Explicitly excluded from training.
-- **Cross-task split inconsistency** — different scripts assigned the same campaign to different splits. Fixed with a single shared campaign-split mapping loaded by every task.
-- **Class imbalance** — the root cause of the inflated stage-prediction accuracy; documented openly.
+- **Temporal overlap**: train/test campaigns spanned the same dates, letting the model exploit time-correlated patterns. Fixed by moving toward a chronological split (train on the past, test on the future).
+- **Sequence overlap**: identical all-benign sequences appeared across train/val/test. Fixed by deduplicating sequences and excluding all-benign campaigns from stage prediction.
+- **Synthetic feature leakage**: `first_time_seen`, `target_vulnerable`, and `ti_match` were synthetically generated and wouldn't exist in real deployment. Explicitly excluded from training.
+- **Cross-task split inconsistency**: different scripts assigned the same campaign to different splits. Fixed with a single shared campaign-split mapping loaded by every task.
+- **Class imbalance**: the root cause of the inflated stage-prediction accuracy; documented openly.
 
 The full audit report is in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 
