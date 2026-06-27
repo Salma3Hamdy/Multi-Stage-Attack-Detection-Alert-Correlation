@@ -152,11 +152,11 @@ The full audit report is in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 ## Getting Started
 
 ```bash
-# clone
+clone
 git clone https://github.com/Salma3Hamdy/Multi-Stage-Attack-Detection-Alert-Correlation.git
 cd Multi-Stage-Attack-Detection-Alert-Correlation
 
-# install dependencies
+install dependencies
 pip install -r requirements.txt
 ```
 
