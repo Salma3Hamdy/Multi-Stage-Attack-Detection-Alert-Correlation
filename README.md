@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.14-blue)
 ![ML](https://img.shields.io/badge/ML-XGBoost-orange)
 ![Framework](https://img.shields.io/badge/MITRE-ATT%26CK-red)
-![Status](https://img.shields.io/badge/status-research%20project-yellow)
+
 
 ![Dashboard overview](assets/screenshots/Final%20edit%20of%20THE%20PROJECT%20.png)
 
@@ -15,7 +15,8 @@
 
 ## The Problem
 
-Security tools generate a flood of low-level alerts, most of them noise. Real attacks rarely look like a single event — they unfold across multiple stages (reconnaissance → initial access → command & control → impact). The hard question:
+SIEM systems generate a flood of low-level alerts, most of them noise. Real attacks rarely look like a single event, they unfold across multiple stages 
+The hard question:
 
 > **Can we automatically identify and group the low-level alerts that belong to the same multi-stage campaign, and predict what stage that attack has reached?**
 
@@ -108,11 +109,11 @@ A core part of this project was **auditing the evaluation itself** rather than t
 
 Key findings and fixes:
 
-- **Temporal overlap** — train/test campaigns spanned the same dates, letting the model exploit time-correlated patterns. Fixed by moving toward a chronological split (train on the past, test on the future).
-- **Sequence overlap** — identical all-benign sequences appeared across train/val/test. Fixed by deduplicating sequences and excluding all-benign campaigns from stage prediction.
-- **Synthetic feature leakage** — `first_time_seen`, `target_vulnerable`, and `ti_match` were synthetically generated and wouldn't exist in real deployment. Explicitly excluded from training.
-- **Cross-task split inconsistency** — different scripts assigned the same campaign to different splits. Fixed with a single shared campaign-split mapping loaded by every task.
-- **Class imbalance** — the root cause of the inflated stage-prediction accuracy; documented openly.
+- **Temporal overlap**: train/test campaigns spanned the same dates, letting the model exploit time-correlated patterns. Fixed by moving toward a chronological split (train on the past, test on the future).
+- **Sequence overlap**: identical all-benign sequences appeared across train/val/test. Fixed by deduplicating sequences and excluding all-benign campaigns from stage prediction.
+- **Synthetic feature leakage**: `first_time_seen`, `target_vulnerable`, and `ti_match` were synthetically generated and wouldn't exist in real deployment. Explicitly excluded from training.
+- **Cross-task split inconsistency**: different scripts assigned the same campaign to different splits. Fixed with a single shared campaign-split mapping loaded by every task.
+- **Class imbalance**: the root cause of the inflated stage-prediction accuracy; documented openly.
 
 The full audit report is in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 
@@ -152,11 +153,12 @@ The full audit report is in [`docs/leakage_audit.md`](docs/leakage_audit.md).
 ## Getting Started
 
 ```bash
-# clone
+clone
 git clone https://github.com/Salma3Hamdy/Multi-Stage-Attack-Detection-Alert-Correlation.git
 cd Multi-Stage-Attack-Detection-Alert-Correlation
-
-# install dependencies
+```
+```
+install dependencies
 pip install -r requirements.txt
 ```
 
