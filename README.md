@@ -15,7 +15,8 @@
 
 ## The Problem
 
-Security tools generate a flood of low-level alerts, most of them noise. Real attacks rarely look like a single event — they unfold across multiple stages (reconnaissance → initial access → command & control → impact). The hard question:
+SIEM systems generate a flood of low-level alerts, most of them noise. Real attacks rarely look like a single event, they unfold across multiple stages 
+The hard question:
 
 > **Can we automatically identify and group the low-level alerts that belong to the same multi-stage campaign, and predict what stage that attack has reached?**
 
