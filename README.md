@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.14-blue)
 ![ML](https://img.shields.io/badge/ML-XGBoost-orange)
 ![Framework](https://img.shields.io/badge/MITRE-ATT%26CK-red)
-![Status](https://img.shields.io/badge/status-research%20project-yellow)
+
 
 ![Dashboard overview](assets/screenshots/Final%20edit%20of%20THE%20PROJECT%20.png)
 
