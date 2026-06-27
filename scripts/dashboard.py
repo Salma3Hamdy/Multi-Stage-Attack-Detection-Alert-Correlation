@@ -697,7 +697,7 @@ if uploaded_file is not None:
 # ============================================================================
 elif use_sample:
     with st.spinner("LOADING SAMPLE DATA..."):
-        df = pd.read_csv("./archive/CIC-IDS-2017_enriched.csv", low_memory=False)
+        df = pd.read_csv("./archive/sample_alerts.csv", low_memory=False)
         df.columns = df.columns.str.strip()
 
         # Re-enrich to fix technique_id (stored as NaN for BENIGN in CSV)
@@ -757,3 +757,4 @@ else:
         <p style="font-size:11px;color:#006600;">Required columns: Source IP, Destination IP, Destination Port, Protocol, Timestamp, Label</p>
     </div>
     """, unsafe_allow_html=True)
+
