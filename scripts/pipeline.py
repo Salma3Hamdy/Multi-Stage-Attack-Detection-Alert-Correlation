@@ -7,7 +7,7 @@ from itertools import combinations
 # ============================================================================
 # Paths
 # ============================================================================
-ENRICHED_PATH = "./archive/CIC-IDS-2017_enriched.csv"
+ENRICHED_PATH = "./archive/sample_alerts.csv"
 LINK_MODEL_PATH = "./models/link_prediction_model.pkl"
 STAGE_MODEL_PATH = "./models/stage_prediction_model.pkl"
 PHASE_ENCODER_PATH = "./models/phase_encoder.pkl"
