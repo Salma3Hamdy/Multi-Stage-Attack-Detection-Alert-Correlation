@@ -20,7 +20,7 @@ constructed.
 
 ---
 
-## Leakage 1 — Temporal Overlap (Task 1) — High
+## Leakage 1 - Temporal Overlap (Task 1) - High
 
 **What's happening.** All three splits cover the same time range (2017-07-04 to
 2017-07-07). Almost every test row falls within the training period.
@@ -37,7 +37,7 @@ simulates performance on genuinely future data.
 
 ---
 
-## Leakage 2 — Sequence Overlap (Task 4, Stage Prediction) — Medium
+## Leakage 2 - Sequence Overlap (Task 4, Stage Prediction) - Medium
 
 **What's happening.** A large share of validation and test sequences are identical to
 training sequences. The overlapping ones are all-benign sequences that look the same
@@ -53,7 +53,7 @@ campaigns from stage prediction entirely, since they add no signal.
 
 ---
 
-## Leakage 3 — Synthetic Feature Leakage (Task 1) — Medium
+## Leakage 3 - Synthetic Feature Leakage (Task 1) - Medium
 
 **What's happening.** Three features in the FP-filter training data are synthetically
 generated: `first_time_seen`, `target_vulnerable`, and `ti_match`.
@@ -67,7 +67,7 @@ only on genuine flow-level features.
 
 ---
 
-## Leakage 4 — Cross-Task Split Inconsistency (Task 1 vs Task 3) — High
+## Leakage 4 - Cross-Task Split Inconsistency (Task 1 vs Task 3) - High
 
 **What's happening.** The scripts that prepare data for different tasks used independent
 campaign-split logic, so a campaign could land in the training set for one task and the
@@ -81,7 +81,7 @@ task's data-generation script, so the same campaign always lands in the same spl
 
 ---
 
-## Leakage 5 — Extreme Class Imbalance (Task 4) — Warning
+## Leakage 5 - Extreme Class Imbalance (Task 4) - Warning
 
 **What's happening.** The stage-prediction training data is overwhelmingly benign, with
 only a handful of samples for some attack stages.
