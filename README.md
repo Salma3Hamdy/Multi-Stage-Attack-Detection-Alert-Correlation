@@ -9,7 +9,7 @@
 
 ![Dashboard overview](assets/screenshots/Final%20edit%20of%20THE%20PROJECT%20.png)
 
-*The dashboard correlating low-level alerts into a critical multi-stage campaign — current stage **Impact**, with the reconstructed attack chain below.*
+*The dashboard correlating low-level alerts into a critical multi-stage campaign current stage **Impact**, with the reconstructed attack chain.*
 
 ---
 
@@ -39,11 +39,11 @@ Raw alerts
 
 Each stage adds something:
 
-- **[1] FP filter** — a lightweight model discards common false-positive alerts before correlation, so the downstream stages aren't drowned in benign traffic.
-- **[2] Enrichment** — alerts are tagged with context: *Is this the first time this source IP has been seen? Is the target host actually vulnerable to the exploit being attempted? Does the hash / domain / IP match known APT indicators?* Techniques are mapped to MITRE ATT&CK.
-- **[3] Correlation** — alerts are grouped into campaigns, with **explainable links** (e.g. "linked by shared source IP" or "same process"), so a human can see *why* two alerts were tied together.
-- **[4] Stage prediction** — the current phase of the campaign is inferred from the techniques present and their kill-chain ordering.
-- **[5] APT similarity** — campaign techniques are compared against known APT-group profiles, with a calibrated low/medium/high confidence rather than a raw score.
+- **[1] FP filter** : a lightweight model discards noisy/benign alerts before correlation, preventing downstream stages from being overwhelmed by benign alerts.
+- **[2] Enrichment** : alerts are tagged with context: *Is this the first time this source IP has been seen? Is the target host actually vulnerable to the exploit being attempted? Does the hash / domain / IP match known APT indicators?* Techniques are mapped to MITRE ATT&CK.
+- **[3] Correlation**: alerts are grouped into campaigns, with **explainable links** (e.g. "linked by shared source IP" or "same process"), so a human can see *why* two alerts were tied together.
+- **[4] Stage prediction** : the current phase of the campaign is inferred from the techniques present and their kill-chain ordering.
+- **[5] APT similarity** : campaign techniques are compared against known APT-group profiles, with a calibrated low/medium/high confidence rather than a raw score.
 
 ---
 
@@ -76,21 +76,21 @@ Each stage adds something:
 
 ## Dataset & Its Limits
 
-This project uses the **CIC-IDS-2017** intrusion-detection dataset. It's a well-known benchmark, but working with it surfaced a limitation worth stating plainly, because it shapes how the results should be read:
+This project uses the **CIC-IDS-2017** intrusion-detection dataset. It's a well-known benchmark, but working with it surfaced a limitation that's worth stating, because it shapes how the results should be read:
 
 - Roughly **75% of the traffic is benign**.
 - Campaigns are built by grouping alerts on *source IP + 30-minute window*.
 - Out of **53,231 reconstructed campaigns, only 19 contain actual attack traffic.**
 
-That last point matters a lot. With so few attack campaigns, a learned multi-class **stage classifier cannot be meaningfully trained** — there simply aren't enough attack examples per class (some attack stages appear only once or twice in the entire dataset). A naive model trained on this data learns to do exactly one thing: predict "benign" for everything, and report a misleadingly high accuracy by doing so.
+That last point matters a lot. With so few attack campaigns, a learned multi-class **stage classifier cannot be trained to produce reliable predictions** there simply aren't enough attack examples per class (some attack stages appear only once or twice in the entire dataset). A naive model trained on this data learns to do exactly one thing: predict "benign" for everything, and report a misleadingly high accuracy by doing so.
 
-**This was caught through a data-leakage audit (see below) and addressed honestly rather than hidden behind an inflated number.**
+**This was caught through a data-leakage audit (see below)**
 
 ---
 
-## What's Real vs What's Honest About the Results
+## What the Results Really Mean
 
-Because of the data limitation above, the components are evaluated separately and reported for what they actually do:
+Because of the data limitation above, the tasks are evaluated separately and reported for what they actually do:
 
 | Component | Approach | Honest status |
 |---|---|---|
@@ -162,7 +162,8 @@ cd Multi-Stage-Attack-Detection-Alert-Correlation
 pip install -r requirements.txt
 ```
 
-The full **CIC-IDS-2017** dataset and the large enriched/training CSVs are not included in this repo due to size (GitHub's 100 MB per-file limit). Download the original dataset from the [official CIC source](https://www.unb.ca/cic/datasets/ids-2017.html), then run the feature-build script to regenerate the enriched data.
+A small built-in sample (archive/sample_alerts.csv) is included so you can run the dashboard straight away without downloading the full dataset, just launch the dashboard and click "Use built-in sample."
+The full CIC-IDS-2017 dataset and the large enriched/training CSVs are not included due to size. To work with the complete data, download the original dataset from the official CIC source (https://www.unb.ca/cic/datasets/ids-2017.html) and run the feature-build script to regenerate the enriched data.
 
 ### Run the pipeline
 
