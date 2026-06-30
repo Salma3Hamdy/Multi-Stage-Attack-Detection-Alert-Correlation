@@ -42,7 +42,7 @@ Each stage adds something:
 - **[1] FP filter** : a lightweight model discards noisy/benign alerts before correlation, preventing downstream stages from being overwhelmed by benign alerts.
 - **[2] Enrichment** : alerts are tagged with context: *Is this the first time this source IP has been seen? Is the target host actually vulnerable to the exploit being attempted? Does the hash / domain / IP match known APT indicators?* Techniques are mapped to MITRE ATT&CK.
 - **[3] Correlation**: alerts are grouped into campaigns, with **explainable links** (e.g. "linked by shared source IP" or "same process"), so the analyst can see *why* two alerts were tied together.
-- **[4] Stage prediction** : the current phase of the campaign is inferred from the techniques present and their kill-chain ordering.
+- **[4] Stage prediction** : The current stage of an attack campaign is inferred from the detected MITRE ATT&CK techniques and their position within the cyber kill chain.
 - **[5] APT similarity** : campaign techniques are compared against known APT-group profiles, with a calibrated low/medium/high confidence rather than a raw score.
 
 ---
