@@ -99,7 +99,16 @@ Because of the data limitation above, the tasks are evaluated separately and rep
 | Stage prediction (Task 4) | Kill-chain rule system, with an ML model as a secondary signal | **Driven primarily by the rule-based kill-chain logic** — the learned classifier is unreliable given only 19 attack campaigns |
 | APT similarity (Task 5) | Jaccard similarity vs APT technique profiles | Reports matched techniques as evidence, returns *no-confidence* instead of a misleading 0-score |
 
-The headline stage-prediction accuracy that an early version of the model reported (~99%) was an artifact of class imbalance, not real performance — the model was effectively predicting "benign" for everything. Rather than present that number, stage prediction is driven by the rule-based kill-chain logic, and the data-leakage audit below documents exactly why the original figure was misleading. This is a deliberate honesty choice over a more impressive-looking but meaningless metric.
+**On the Stage Prediction Model**
+
+The stage prediction model achieved high overall accuracy (94% on the validation set and nearly 100% on the test set). However, I have to stress that these results are heavily influenced by the severe class imbalance in the dataset.
+
+More than 93% of the samples belong to the Benign class, allowing the model to obtain high overall accuracy by correctly classifying the majority class. Class-wise evaluation provides a more realistic assessment. On the validation set, for example, the model failed to identify any Reconnaissance samples (0% recall), instead predicting all 99 instances as Benign. This is also reflected in the evaluation metrics: while the weighted F1 score reached 0.91, the macro F1 score was only 0.19, indicating poor performance on the minority attack stages.
+
+In practice, the model reliably distinguishes Benign traffic from Impact (DDoS) events but does not generalize well to the less frequent attack stages, including Reconnaissance, Credential Access, and Command and Control, due to the limited number of training examples available for these classes.
+
+Consequently, the dashboard does not rely on the learned classifier for attack stage prediction. Instead, attack stages are inferred using a rule-based kill chain approach that maps detected techniques to their corresponding MITRE ATT&CK tactics and reports the most advanced stage observed. This design choice prioritizes interpretability and reliable behavior over reporting performance metrics that are inflated by class imbalance.
+
 
 ---
 
