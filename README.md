@@ -49,15 +49,15 @@ Each stage adds something:
 
 ## Screenshots
 
-**Attack chain & APT attribution** — the system reconstructs the kill-chain order and matches the campaign's techniques against known APT profiles, showing *which* techniques matched as evidence (here: APT28 / Fancy Bear, medium confidence).
+**Attack chain & APT attribution**  the system constructs the kill-chain order and matches the campaign's techniques against known APT profiles, showing *which* techniques matched as evidence (here: APT28 / Fancy Bear, medium confidence).
 
 ![Attack chain and APT attribution](assets/screenshots/Final%20edit%20of%20THE%20PROJECT%202.png)
 
-**Explainable correlation evidence** — every grouping comes with the features that justified it (shared source IP, shared technique, temporal order) and their importance, so an analyst can see *why* alerts were linked.
+**Explainable correlation evidence**  every grouping comes with the features that justified it (shared source IP, shared technique, temporal order) and their importance, so an analyst can see *why* alerts were linked.
 
 ![Correlation evidence](assets/screenshots/Final%20edit%20of%20THE%20PROJECT%203.png)
 
-**A second campaign at a different stage** — the same pipeline surfaces a separate campaign sitting at the *Execution* stage (T1059), with its own attribution and confidence.
+**A second campaign at a different stage**  the same pipeline surfaces a separate campaign sitting at the *Execution* stage (T1059), with its own attribution and confidence.
 
 ![Campaign at execution stage](assets/screenshots/final%20edit%20of%20THE%20PROJECT%204.png)
 
