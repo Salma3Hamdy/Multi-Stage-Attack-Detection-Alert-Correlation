@@ -114,7 +114,7 @@ Consequently, the dashboard does not rely on the learned classifier for attack s
 
 ## Data-Leakage Audit
 
-A core part of this project was **auditing the evaluation itself** rather than trusting the first number that came out. The audit checked for campaign overlap, duplicate rows/pairs, alert-index overlap, temporal overlap, sequence overlap, synthetic-feature leakage, cross-task split consistency, and class balance.
+When the stage prediction model reported 94% validation accuracy and nearly 100% test accuracy, the results appeared unusually strong given the nature of the dataset. Rather than accepting these metrics at face value, I conducted a systematic audit to determine whether they were influenced by data leakage or evaluation bias. The audit examined campaign overlap, duplicate alerts and alert pairs, alert-index overlap, temporal overlap, sequence overlap, synthetic feature leakage, cross-task split consistency, and class imbalance.
 
 Key findings and fixes:
 
