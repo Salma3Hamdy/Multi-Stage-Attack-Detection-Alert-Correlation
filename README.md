@@ -9,7 +9,7 @@
 
 ![Dashboard overview](assets/screenshots/Final%20edit%20of%20THE%20PROJECT%20.png)
 
-*The dashboard correlating low-level alerts into a critical multi-stage campaign current stage **Impact**, with the reconstructed attack chain.*
+*The dashboard correlating low-level alerts into a critical multi-stage campaign current stage **Impact**, with the constructed attack chain.*
 
 ---
 
